@@ -17,8 +17,9 @@ public class Joueur {
     // equals
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (getClass() != o.getClass())
+            return false;
+
         Joueur joueur = (Joueur) o;
         return nom.equals(joueur.nom);
     }

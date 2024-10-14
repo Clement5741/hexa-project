@@ -29,7 +29,7 @@ public class Mastermind {
             return false;
         }
         String mot = serviceTirageMot.tirageMotAleatoire();
-        Partie nouvellePartie = Partie.create(joueur, mot);
+        Partie nouvellePartie = new Partie(joueur, mot);
         partieRepository.create(nouvellePartie);
         return true;
     }

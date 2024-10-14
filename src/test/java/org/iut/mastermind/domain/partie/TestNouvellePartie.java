@@ -49,7 +49,7 @@ public class TestNouvellePartie {
     void nePeutPasRedemarrerUnePartie() {
         when(partieRepository
                 .getPartieEnregistree(eq(JOUEUR)))
-                .thenReturn(Optional.of(Partie.create(JOUEUR, MOT_CORRECT)));
+                .thenReturn(Optional.of(new Partie(JOUEUR, MOT_CORRECT)));
         var succes = mastermind.nouvellePartie(JOUEUR);
         assertThat(succes).isFalse();
     }

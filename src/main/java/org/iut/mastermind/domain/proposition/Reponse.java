@@ -21,9 +21,7 @@ public class Reponse {
     // on construit le résultat en analysant chaque lettre
     // du mot proposé
     public void compare(String essai) {
-        for (int i = 0; i < essai.length(); i++) {
-            resultat.add(evaluationCaractere(essai.charAt(i)));
-        }
+        essai.chars().forEach(carCourant -> resultat.add(evaluationCaractere((char) carCourant)));
     }
 
     // si toutes les lettres sont placées

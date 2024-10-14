@@ -30,7 +30,7 @@ public class TestPartie {
     @Test
     @DisplayName("retourne le résultat du mot proposé")
     void doitRenvoyerResultatPourLaProposition() {
-        givenPartieEnregistree(Partie.create(JOUEUR, MOT_CORRECT));
+        givenPartieEnregistree(new Partie(JOUEUR, MOT_CORRECT));
         ResultatPartie res = mastermind.evaluation(JOUEUR, MOT_INCORRECT);
         Lettre premiereLettre = res.resultat().lettre(0);
         assertThat(premiereLettre).isEqualTo(Lettre.NON_PLACEE);
@@ -39,7 +39,7 @@ public class TestPartie {
     @Test
     @DisplayName("met à jour le nombre d'essais")
     void doitMettreAJourNombreEssais() {
-        givenPartieEnregistree(Partie.create(JOUEUR, MOT_CORRECT));
+        givenPartieEnregistree(new Partie(JOUEUR, MOT_CORRECT));
         mastermind.evaluation(JOUEUR, MOT_INCORRECT);
         var partie = getPartieMAJDansRepository();
         assertThat(partie.getNbEssais()).isEqualTo(1);
@@ -49,7 +49,7 @@ public class TestPartie {
     @DisplayName("termine la partie quand le nombre d'essais est dépassé")
     void doitTerminerLaPartieQuandNombreEssaisDepasse(){
         int nbEssaiMax = 5;
-        givenPartieEnregistree(Partie.create(JOUEUR, MOT_CORRECT, nbEssaiMax-1));
+        givenPartieEnregistree(new Partie(JOUEUR, MOT_CORRECT, nbEssaiMax-1));
         ResultatPartie result = mastermind.evaluation(JOUEUR, MOT_INCORRECT);
         assertThat(result.isTermine()).isTrue();
     }
@@ -57,7 +57,7 @@ public class TestPartie {
     @Test
     @DisplayName("lève une erreur quand la partie est terminée")
     void doitLeverErreurQuandJeuTermine(){
-        var partie = Partie.create(JOUEUR, MOT_CORRECT);
+        var partie = new Partie(JOUEUR, MOT_CORRECT);
         partie.done();
         givenPartieEnregistree( partie );
         ResultatPartie result = mastermind.evaluation(JOUEUR, MOT_INCORRECT);
@@ -67,7 +67,7 @@ public class TestPartie {
     @Test
     @DisplayName("enregistre la partie quand elle est victorieuse")
     void doitEnregistrerPartieQuandVictoire(){
-        givenPartieEnregistree(Partie.create(JOUEUR, MOT_CORRECT));
+        givenPartieEnregistree(new Partie(JOUEUR, MOT_CORRECT));
         mastermind.evaluation(JOUEUR, MOT_CORRECT);
         Partie partie = getPartieMAJDansRepository();
         assertThat(partie.isTerminee()).isTrue();
